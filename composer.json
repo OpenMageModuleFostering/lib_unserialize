@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Lib_Unserialize",
+    "type": "magento-module",
+    "license": "Magento-Core-Edition",
+    "homepage": "",
+    "description": "Magento Library",
+    "authors": [
+    {
+        "name": "Magento Core Team",
+        "email": "core@magentocommerce.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
