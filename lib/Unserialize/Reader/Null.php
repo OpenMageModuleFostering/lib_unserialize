@@ -25,9 +25,9 @@
  */
 
 /**
- * Class Unserialize_Reader_ArrKey
+ * Class Unserialize_Reader_Null
  */
-class Unserialize_Reader_ArrKey
+class Unserialize_Reader_Null
 {
     /**
      * @var int
@@ -35,49 +35,29 @@ class Unserialize_Reader_ArrKey
     protected $_status;
 
     /**
-     * @object
+     * @var string
      */
-    protected $_reader;
+    protected $_value;
 
-    const NOT_STARTED = 1;
-    const READING_KEY = 2;
+    const NULL_VALUE = 'null';
 
-    /**
-     * Construct
-     */
-    public function __construct()
-    {
-        $this->_status = self::NOT_STARTED;
-    }
+    const READING_VALUE = 1;
 
     /**
      * @param string $char
      * @param string $prevChar
-     * @return mixed|null
-     * @throws Exception
+     * @return string|null
      */
     public function read($char, $prevChar)
     {
-        if ($this->_status == self::NOT_STARTED) {
-            switch ($char) {
-                case Unserialize_Parser::TYPE_STRING:
-                    $this->_reader = new Unserialize_Reader_Str();
-                    $this->_status = self::READING_KEY;
-                    break;
-                case Unserialize_Parser::TYPE_INT:
-                    $this->_reader = new Unserialize_Reader_Int();
-                    $this->_status = self::READING_KEY;
-                    break;
-                default:
-                    throw new Exception('Unsupported data type ' . $char);
-            }
+        if ($prevChar == Unserialize_Parser::SYMBOL_SEMICOLON) {
+            $this->_value = self::NULL_VALUE;
+            $this->_status = self::READING_VALUE;
+            return null;
         }
 
-        if ($this->_status == self::READING_KEY) {
-            $key = $this->_reader->read($char, $prevChar);
-            if (!is_null($key)) {
-                return $key;
-            }
+        if ($this->_status == self::READING_VALUE && $char == Unserialize_Parser::SYMBOL_SEMICOLON) {
+            return $this->_value;
         }
         return null;
     }
