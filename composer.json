@@ -1,7 +1,7 @@
 {
-    "name": "OpenMageModuleFostering\/Lib_Unserialize",
+    "name": "openmage-module-fostering\/lib_unserialize",
     "type": "magento-module",
-    "license": "Magento-Core-Edition",
+    "license": "OSL-3.0",
     "homepage": "",
     "description": "Magento Library",
     "authors": [
